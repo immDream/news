@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.immdream</groupId>
+    <artifactId>news</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>CodeGenerator</module>
+        <module>news-commons</module>
+        <module>news-login</module>
+        <module>news-security</module>
+        <module>news-user-manager</module>
+        <module>news-model</module>
+        <module>news-api-web</module>
+        <module>news-commons</module>
+        <module>news-news-manager</module>
+        <module>news-news-manager</module>
+    </modules>
+    <name>news</name>
+    <description>news project for Spring Boot</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
+        <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+        <mybatis.plus.version>3.5.2</mybatis.plus.version>
+        <lombok.version>1.18.26</lombok.version>
+        <spring.boot.devtools.version>3.0.5</spring.boot.devtools.version>
+        <swagger.version>2.9.2</swagger.version>
+        <druid.version>1.1.24</druid.version>
+        <fastjson.version>1.2.70</fastjson.version>
+        <jjwt.version>0.11.1</jjwt.version>
+        <hutool.version>5.3.4</hutool.version>
+        <pagehelper.version>1.4.2</pagehelper.version>
+        <redis.version>2.7.1</redis.version>
+        <pagehelper.version>1.4.2</pagehelper.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>news-commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>news-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>news-api-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- spring-boot-devtools -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring.boot.devtools.version}</version>
+            </dependency>
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>mysql</groupId>-->
+            <!--    <artifactId>mysql-connector-java</artifactId>-->
+            <!--</dependency>-->
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- druid数据源驱动 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- jwt -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!--工具包-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- pagehelper启动器 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>newsSystem</finalName>
+        <plugins>
+            <!-- 配置打包插件 java -jar 包名 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.12.RELEASE</version>
+                <!--<executions>-->
+                <!--    <execution>-->
+                <!--        &lt;!&ndash;<id>repackage</id>&ndash;&gt;-->
+                <!--        <goals>-->
+                <!--            <goal>repackage</goal>-->
+                <!--        </goals>-->
+                <!--    </execution>-->
+                <!--</executions>-->
+                <configuration>
+                    <!-- devtools -->
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!--&lt;!&ndash; 打包时跳过测试 &ndash;&gt;-->
+            <!--<plugin>-->
+            <!--    <groupId>org.apache.maven.plugins</groupId>-->
+            <!--    <artifactId>maven-surefire-plugin</artifactId>-->
+            <!--    <configuration>-->
+            <!--        <skip>true</skip>-->
+            <!--        &lt;!&ndash;<skipTests>true</skipTests>&ndash;&gt;-->
+            <!--    </configuration>-->
+            <!--</plugin>-->
+
+        </plugins>
+    </build>
+
+</project>

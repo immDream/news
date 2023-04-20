@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="news-user-manager" />
+        <module name="news-commons" />
+        <module name="news-security" />
+        <module name="CodeGenerator" />
+        <module name="news-api-web" />
+        <module name="news-login" />
+        <module name="news-model" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CodeGenerator" target="1.8" />
+      <module name="news" target="1.8" />
+      <module name="news-api-web" target="1.8" />
+      <module name="news-commons" target="1.8" />
+      <module name="news-login" target="1.8" />
+      <module name="news-model" target="1.8" />
+      <module name="news-news-manager" target="1.8" />
+      <module name="news-security" target="1.8" />
+      <module name="news-user-manager" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="news" options="" />
+    </option>
+  </component>
+</project>
