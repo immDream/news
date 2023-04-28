@@ -2,7 +2,8 @@ package com.immdream.usermanager.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.immdream.usermanager.entity.Admin;
+import com.immdream.model.domain.user.Admin;
+
 
 /**
  * <p>

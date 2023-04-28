@@ -24,10 +24,8 @@ import org.springframework.http.HttpStatus;
  * <p>错误码：用户请求错误 - A0400；用户请求参数错误 - A0401；用户请求参数无效 - A0402；
  *
  * <p>
- * shop-erp-after com.immdream.product.erp.exception
  *
  * @author immDream
- * @date 2022/08/06/9:40
  * @since 1.8
  */
 public enum  ErrorCode {
@@ -50,6 +48,7 @@ public enum  ErrorCode {
     FILE_UPLOAD_ERROR("B0104", "文件上传失败"),
 
     ADMIN_ADD_USER_ERROR("B0204", "管理员添加测试用户操作失败"),
+    ADMIN_DELETE_USER_ERROR("B0203", "管理员删除测试用户操作失败"),
 
     SERVER_ERROR("A0500", "服务器内部错误"),
     OK("00000", "OK");

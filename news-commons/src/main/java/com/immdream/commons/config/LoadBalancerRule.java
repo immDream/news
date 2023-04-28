@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * news com.immdream.config
  *
  * @author immDream
- * @date 2023/04/10/13:14
+ * @date 2023/03/10/13:14
  * @since 1.8
  */
 @Configuration

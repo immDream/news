@@ -2,7 +2,7 @@ package com.immdream.usermanager.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.immdream.usermanager.entity.News;
+import com.immdream.model.domain.news.News;
 
 /**
  * <p>

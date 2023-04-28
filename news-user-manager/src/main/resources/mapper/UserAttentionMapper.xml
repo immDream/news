@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immdream.usermanager.mapper.UserAttentionMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.immdream.model.domain.user.UserAttention">
+    <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="attention_user_id" property="attentionUserId" />
+        <result column="is_top" property="isTop" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        user_id, attention_user_id, is_top, create_time, update_time
+    </sql>
+
+    <sql id="Attention_User_List">
+        id, username, nickname, image, describle
+    </sql>
+
+</mapper>

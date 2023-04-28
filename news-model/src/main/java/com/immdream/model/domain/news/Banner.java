@@ -1,6 +1,8 @@
 package com.immdream.model.domain.news;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -25,12 +27,14 @@ import java.util.Date;
 public class Banner extends Model<Banner> {
 
     private static final long serialVersionUID = 1L;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @TableField("user_id")
-    private String userId;
+    private Integer userId;
 
-    @TableField("articel_id")
-    private String articelId;
+    @TableField("article_id")
+    private String articleId;
 
     private String title;
 

@@ -8,7 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * news com.immdream.commons.util
  *
  * @author immDream
- * @date 2023/04/11/22:55
+ * @date 2023/03/11/22:55
  * @since 1.8
  */
 public class MD5Util {

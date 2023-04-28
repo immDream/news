@@ -24,6 +24,10 @@ import java.util.Date;
 public class UserUpdateDTORequest extends BaseDTO implements Serializable {
 
     private static final long serialVersionUID = -3901053703700174432L;
+
+    @NotNull(groups = {Update.class}, message = "用户id不能为空")
+    private Integer id;
+
     /**
      * 用户账户,不超过16字符
      */
@@ -45,13 +49,13 @@ public class UserUpdateDTORequest extends BaseDTO implements Serializable {
     /**
      * 用户手机号
      */
-    @NotEmpty(groups = {Insert.class, Update.class}, message = "用户手机号不能为空")
-    private String telephone;
+    // @NotEmpty(groups = {Insert.class, Update.class}, message = "用户手机号不能为空")
+    // private String telephone;
 
     /**
      * 用户头像，默认相对地址
      */
-    private String image;
+    // private String image;
 
     /**
      * 用户描述

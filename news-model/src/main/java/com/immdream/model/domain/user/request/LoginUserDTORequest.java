@@ -18,10 +18,12 @@ import javax.validation.constraints.NotNull;
 @Data
 @ToString
 public class LoginUserDTORequest {
-    @NotNull(groups = {BaseDTO.Insert.class}, message = "用户名必填")
+    @NotNull(groups = {BaseDTO.Select.class}, message = "用户名必填")
     String username;
-    @NotNull(groups = {BaseDTO.Insert.class}, message = "密码必填")
+    @NotNull(groups = {BaseDTO.Select.class}, message = "手机号必填")
+    String telephone;
+    @NotNull(groups = {BaseDTO.Select.class}, message = "密码必填")
     String password;
-    @NotNull(groups = {BaseDTO.Insert.class}, message = "验证码必填")
+    @NotNull(groups = {BaseDTO.Select.class}, message = "验证码必填")
     String verifyCode;
 }

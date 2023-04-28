@@ -17,6 +17,11 @@ import lombok.ToString;
 @ToString
 public class UserDTO {
     /**
+     * 用户 id
+     */
+    private Integer id;
+
+    /**
      * 用户账户,不超过16字符
      */
     private String username;

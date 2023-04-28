@@ -6,10 +6,9 @@ import org.springframework.http.HttpStatus;
 /**
  * 自定义异常的父类
  * <p>
- * shop-erp-after com.immdream.product.erp.exception
  *
  * @author immDream
- * @date 2022/08/06/10:03
+ * @date 2023/03/10/20:22
  * @since 1.8
  */
 public class BaseException extends RuntimeException{

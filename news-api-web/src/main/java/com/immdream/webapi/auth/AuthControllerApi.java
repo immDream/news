@@ -11,13 +11,13 @@ import io.swagger.annotations.ApiOperation;
  * news com.immdream.webapi.auth
  *
  * @author immDream
- * @date 2023/04/13/16:28
+ * @date 2023/03/13/16:28
  * @since 1.8
  */
 @Api(value = "用户认证")
 public interface AuthControllerApi {
 
-    @ApiOperation("登录")
+    @ApiOperation("用户名登录")
     JsonResult<Object> login(LoginUserDTORequest loginUserDTORequest);
 
     @ApiOperation("退出")

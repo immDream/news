@@ -12,11 +12,12 @@ import java.util.List;
  * shop-erp-after com.immdream.product.erp.util
  *
  * @author immDream
- * @date 2022/08/10/23:31
+ * @date 2023/03/10/23:31
  * @since 1.8
  */
 @Data
 public class PageResult<T> implements Serializable {
+    private static final long serialVersionUID = -6484074092990667696L;
     /**
      * 当前页码
      */

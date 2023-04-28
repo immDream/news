@@ -30,6 +30,24 @@
             <groupId>com.immdream</groupId>
             <artifactId>news-api-web</artifactId>
         </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-devtools</artifactId>-->
+        <!--    <version>2.0.2.RELEASE</version>-->
+        <!--    &lt;!&ndash; 防止将依赖传递到其他模块中 &ndash;&gt;-->
+        <!--    <optional>true</optional>-->
+        <!--    &lt;!&ndash; 只在运行时起作用，打包时不打进去（防止线上执行打包后的程序，启动文件监听线程File Watcher，耗费大量的内存资源） &ndash;&gt;-->
+        <!--    <scope>runtime</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- 熔断器 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -77,11 +95,24 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-devtools</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <!-- devtools依赖此配置（否则，devtools不生效）。 -->
+                        <fork>true</fork>
+                    </configuration>
+                </plugin>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>

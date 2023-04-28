@@ -1,7 +1,8 @@
 package com.immdream.usermanager.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.immdream.usermanager.entity.Banner;
+import com.immdream.model.domain.news.Banner;
+
 
 /**
  * <p>

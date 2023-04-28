@@ -1,7 +1,7 @@
 package com.immdream.usermanager.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.immdream.usermanager.entity.Role;
+import com.immdream.model.domain.user.Role;
 import com.immdream.usermanager.mapper.RoleMapper;
 import com.immdream.usermanager.service.IRoleService;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package com.immdream.usermanager.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.immdream.usermanager.entity.Comment;
+import com.immdream.model.domain.news.Comment;
 
 /**
  * <p>

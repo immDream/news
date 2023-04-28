@@ -18,6 +18,10 @@
         <module>news-commons</module>
         <module>news-news-manager</module>
         <module>news-news-manager</module>
+        <module>news-news-manager</module>
+        <module>news-service-gateway</module>
+        <module>news-service-eureka</module>
+        <module>news-publish-news</module>
     </modules>
     <name>news</name>
     <description>news project for Spring Boot</description>

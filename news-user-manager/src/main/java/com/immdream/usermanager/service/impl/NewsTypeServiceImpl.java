@@ -1,7 +1,7 @@
 package com.immdream.usermanager.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.immdream.usermanager.entity.NewsType;
+import com.immdream.model.domain.news.NewsType;
 import com.immdream.usermanager.mapper.NewsTypeMapper;
 import com.immdream.usermanager.service.INewsTypeService;
 import org.springframework.stereotype.Service;

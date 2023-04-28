@@ -2,6 +2,7 @@ package com.immdream.commons.util;
 
 import com.immdream.commons.exception.ErrorCode;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -12,10 +13,11 @@ import java.io.Serializable;
  * news com.immdream.util
  *
  * @author immDream
- * @date 2023/04/11/19:08
+ * @date 2023/03/11/19:08
  * @since 1.8
  */
 @Data
+@ToString
 public class JsonResult<T> implements Serializable {
     private Integer status;             // http 状态码
     private String errorCode;           // 错误信息的编码
@@ -89,7 +91,7 @@ public class JsonResult<T> implements Serializable {
      * @return
      */
     public static <T> JsonResult error (ErrorCode errorCode, String message) {
-        return error(errorCode, message);
+        return error(errorCode, message, null);
     }
 
     public static <T> JsonResult error (ErrorCode errorCode, String message, T data) {

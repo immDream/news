@@ -3,7 +3,6 @@ package com.immdream.commons.exception;
 /**
  * 定义一个用户端异常信息
  * <p>
- * shop-erp-after com.immdream.product.erp.exception
  *
  * @author immDream
  * @since 1.8

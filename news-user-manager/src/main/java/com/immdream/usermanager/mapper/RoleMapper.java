@@ -2,7 +2,7 @@ package com.immdream.usermanager.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.immdream.usermanager.entity.Role;
+import com.immdream.model.domain.user.Role;
 
 /**
  * <p>

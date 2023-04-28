@@ -18,7 +18,7 @@ public abstract class BaseDTO implements Serializable {
     private static final long serialVersionUID = -2032639531229309377L;
 
     /**
-     * 用来进行添加分组校验
+     * 插入的分组标识接口
      */
     public interface Insert {}
 
@@ -26,4 +26,9 @@ public abstract class BaseDTO implements Serializable {
      * 修改的分组标识接口
      */
     public interface Update {}
+
+    /**
+     * 查询的分组标识接口
+     */
+    public interface Select {}
 }

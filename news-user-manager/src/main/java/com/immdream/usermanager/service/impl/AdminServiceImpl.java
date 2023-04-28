@@ -1,7 +1,7 @@
 package com.immdream.usermanager.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.immdream.usermanager.entity.Admin;
+import com.immdream.model.domain.user.Admin;
 import com.immdream.usermanager.mapper.AdminMapper;
 import com.immdream.usermanager.service.IAdminService;
 import org.springframework.stereotype.Service;

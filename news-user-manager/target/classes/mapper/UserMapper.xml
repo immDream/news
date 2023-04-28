@@ -19,13 +19,27 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <resultMap id="UnimportantUserResultMap" type="com.immdream.model.domain.user.query.UserQuery">
+        <result column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="nickname" property="nickname" />
+        <result column="image" property="image" />
+        <result column="describe" property="describe" />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         `id`,
         `username`, `password`, `nickname`, `email`, `telephone`, `image`, `describe`, `create_time`, `update_time`
     </sql>
 
-    <select id="selectUserListByCondition" parameterType="com.immdream.model.domain.user.User" resultMap="BaseResultMap">
+    <!-- 没有关键信息的用户所需要的结果列 -->
+    <sql id="Unimportant_User_List">
+        `user`.id, username, nickname, image, `describe`
+    </sql>
+
+    <select id="selectUserListByCondition" parameterType="com.immdream.model.domain.user.User"
+            resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from USER
         <where>
             <if test="username != null">
@@ -40,6 +54,18 @@
                 where email = #{email}
             </if>
         </where>
+    </select>
+
+    <select id="listAttentionUser" parameterType="Integer" resultMap="UnimportantUserResultMap">
+        select <include refid="Unimportant_User_List"></include> from `user`
+        inner join `user_attention` as b
+        on `user`.id = b.attention_user_id
+        where b.user_id = #{id}
+    </select>
+
+    <select id="getUserVoById" parameterType="Integer" resultMap="UnimportantUserResultMap">
+        select <include refid="Unimportant_User_List"></include> from `user`
+        where id = #{id}
     </select>
 
 </mapper>

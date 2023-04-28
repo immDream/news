@@ -2,7 +2,7 @@ package com.immdream.usermanager.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.immdream.usermanager.entity.Comment;
+import com.immdream.model.domain.news.Comment;
 import com.immdream.usermanager.mapper.CommentMapper;
 import com.immdream.usermanager.service.ICommentService;
 import org.springframework.stereotype.Service;
