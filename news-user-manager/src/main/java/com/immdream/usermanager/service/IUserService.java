@@ -11,6 +11,7 @@ import com.immdream.model.domain.user.query.UserQuery;
 import com.immdream.model.domain.user.request.FollowUserDTORequest;
 import com.immdream.model.domain.user.request.LoginUserDTORequest;
 import com.immdream.model.domain.user.request.RegisterUserDTORequest;
+import com.immdream.usermanager.domain.HistoryNewsDTO;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public interface IUserService extends IService<User> {
      * @param userQuery     查询条件
      * @return              查询结果
      */
-    List<User> listUsers(int pageIndex, int pageSize, UserQuery userQuery);
+    Page<User> listUsers(int pageIndex, int pageSize, UserQuery userQuery);
 
     /**
      * 保存新增用户
@@ -92,6 +93,13 @@ public interface IUserService extends IService<User> {
      * @return
      */
     boolean updateEmailById(Integer id, String email);
+
+    /**
+     * 查询当前用户的 历史浏览记录
+     * @param id
+     * @return
+     */
+    List<HistoryNewsDTO> listHistoryById(Integer id);
 
     /**
      * 查询当前用户的 历史浏览记录
@@ -142,16 +150,30 @@ public interface IUserService extends IService<User> {
     boolean followUser(FollowUserDTORequest followUserDTORequest);
 
     /**
-     * 关注用户
+     * 取关用户
      * @param followUserDTORequest
      * @return
      */
     boolean unfollowUser(FollowUserDTORequest followUserDTORequest);
 
     /**
-     * 关注用户
+     * 特关用户
      * @param followUserDTORequest
      * @return
      */
     boolean particularUser(FollowUserDTORequest followUserDTORequest);
+
+    /**
+     * 封禁用户
+     * @param id
+     * @return
+     */
+    boolean banUserById(String id);
+
+    /**
+     * 解封
+     * @param id
+     * @return
+     */
+    boolean unBanUserById(String id);
 }

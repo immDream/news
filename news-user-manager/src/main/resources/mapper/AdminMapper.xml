@@ -10,7 +10,6 @@
     <result column="id" property="id" />
         <result column="admin_username" property="adminUsername" />
         <result column="admin_password" property="adminPassword" />
-        <result column="nickname" property="nickname" />
         <result column="role_id" property="roleId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
@@ -19,7 +18,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
-        admin_username, admin_password, nickname, role_id, create_time, update_time
+        admin_username, admin_password, role_id, create_time, update_time
     </sql>
 
 </mapper>

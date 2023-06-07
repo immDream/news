@@ -31,6 +31,9 @@ public interface UserCenterApi {
     JsonResult<Object> updateInfo(UserUpdateDTORequest userUpdateDTORequest, Integer id);
 
     @ApiOperation("查询历史记录")
+    JsonResult<Object> getBrowsingHistory(Integer id);
+
+    @ApiOperation("查询历史记录")
     JsonResult<Object> getBrowsingHistory(UserHistoryDTORequest userHistoryDTORequest);
 
     @ApiOperation("重新绑定手机号")

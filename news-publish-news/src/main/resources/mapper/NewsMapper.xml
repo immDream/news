@@ -12,7 +12,8 @@
         <result column="news_content" property="newsContent" />
         <result column="author" property="author" />
         <result column="description" property="description" />
-        <result column="news_image_path" property="newsImagePath" />
+        <result column="pic_url" property="picUrl" />
+        <result column="video_url" property="videoUrl" />
         <result column="news_link" property="newsLink" />
         <result column="news_modules" property="newsModules" />
         <result column="joke_count" property="jokeCount" />
@@ -30,8 +31,27 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
-        news_title, news_content, author, description, news_image_path, news_link, news_modules, joke_count, collection_count, comment_count, visit_count, is_top, is_deleted, is_expired, news_tags, create_time, update_time
+        news_title, news_content, author, description, pic_url, video_url, news_link, news_modules, joke_count, collection_count, comment_count, visit_count, is_top, is_deleted, is_expired, news_tags, create_time, update_time
     </sql>
 
+    <sql id="Hot_News_List">
+        id,
+        news_title, news_content, author, description, pic_url, video_url, news_link, news_modules, joke_count, collection_count, comment_count, visit_count, is_top, is_deleted, is_expired, news_tags, create_time, update_time, `hot`
+    </sql>
+
+    <select id="selectNewsListTop" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include>
+            from news
+            where is_top = 1 and is_deleted = 0
+        union
+        select <include refid="Base_Column_List"></include>
+            from news
+            where is_top = 0  and is_deleted = 0;
+    </select>
+
+    <!--<select id="selectHotNewsList" resultMap="Hot_News_List" parameterType="java.util.Date">-->
+    <!--    select * from news-->
+    <!--    where-->
+    <!--</select>-->
 
 </mapper>

@@ -4,6 +4,8 @@ package com.immdream.publishnews.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.Page;
 import com.immdream.model.domain.news.News;
+import com.immdream.model.domain.news.dto.HotNewsDTO;
+import com.immdream.model.domain.news.query.NewsDetailsQuery;
 import com.immdream.model.domain.news.query.NewsQuery;
 import com.immdream.model.domain.news.request.AddNewsDTORequest;
 import com.immdream.model.domain.news.request.DeleteNewsDTORequest;
@@ -23,6 +25,12 @@ import java.util.List;
 public interface INewsService extends IService<News> {
 
     /**
+     * 热点新闻列表
+     * @return
+     */
+    List<HotNewsDTO> hotNewsList();
+
+    /**
      * 添加新闻
      * @param addNewsDTORequest
      * @return
@@ -34,21 +42,43 @@ public interface INewsService extends IService<News> {
      * @param id
      * @return
      */
-    boolean deleteNews(String id);
+    boolean deleteNews(Integer id);
+
+    /**
+     * 更新新闻
+     * @param news
+     * @return
+     */
+    boolean updateNewsCount(News news);
+
+    /**
+     * 新闻点赞
+     * @param newsDetailsQuery
+     * @return
+     */
+    boolean jokeNews(NewsDetailsQuery newsDetailsQuery);
 
     /**
      * 新闻置顶
      * @param id
      * @return
      */
-    boolean topNews(Integer id);
+    boolean topNews(Integer id, boolean isUp);
 
     /**
      * 查询新闻
      * @param id
      * @return
      */
-    News getNewsDetails(String id);
+    News getNewsDetails(Integer id);
+
+    /**
+     * 查询新闻并记录用户行为
+     * @param userId
+     * @param id
+     * @return
+     */
+    News getNewsDetails(Integer userId, Integer id);
 
     /**
      * 查询新闻列表

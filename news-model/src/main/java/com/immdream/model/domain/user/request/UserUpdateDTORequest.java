@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -44,18 +45,19 @@ public class UserUpdateDTORequest extends BaseDTO implements Serializable {
      * 用户邮箱
      */
     @NotEmpty(groups = {Insert.class, Update.class}, message = "用户邮箱不能为空")
+    @Pattern(regexp = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",message = "邮箱格式不对")
     private String email;
 
     /**
      * 用户手机号
      */
-    // @NotEmpty(groups = {Insert.class, Update.class}, message = "用户手机号不能为空")
-    // private String telephone;
+    @NotEmpty(groups = {Insert.class, Update.class}, message = "用户手机号不能为空")
+    private String telephone;
 
     /**
      * 用户头像，默认相对地址
      */
-    // private String image;
+    private String image;
 
     /**
      * 用户描述

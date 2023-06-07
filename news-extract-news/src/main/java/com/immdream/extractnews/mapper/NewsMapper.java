@@ -1,8 +1,8 @@
-package com.immdream.usermanager.mapper;
+package com.immdream.extractnews.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.immdream.model.domain.news.Banner;
+import com.immdream.model.domain.news.News;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ import com.immdream.model.domain.news.Banner;
  * @author immDream
  * @since 2023-04-11
  */
-public interface BannerMapper extends BaseMapper<Banner> {
+public interface NewsMapper extends BaseMapper<News> {
 
 }

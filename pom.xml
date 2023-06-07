@@ -22,6 +22,8 @@
         <module>news-service-gateway</module>
         <module>news-service-eureka</module>
         <module>news-publish-news</module>
+        <module>news-extract-news</module>
+        <module>news-config</module>
     </modules>
     <name>news</name>
     <description>news project for Spring Boot</description>

@@ -27,10 +27,10 @@ public class NewsComment extends Model<NewsComment> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 评论发布人 id
+     * 新闻 id
      */
-    @TableField("user_id")
-    private Integer userId;
+    @TableField("id")
+    private Integer id;
 
     /**
      * 新闻评论 id
@@ -39,7 +39,7 @@ public class NewsComment extends Model<NewsComment> {
     private String commentId;
 
     /**
-     * 新闻发布时间
+     * 发布时间
      */
     @TableField("create_time")
     private Date createTime;

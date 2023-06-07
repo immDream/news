@@ -9,10 +9,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.immdream.commons.util.JsonResult;
 import com.immdream.model.domain.news.News;
+import com.immdream.model.domain.news.dto.HotNewsDTO;
+import com.immdream.model.domain.news.query.NewsDetailsQuery;
 import com.immdream.model.domain.news.query.NewsQuery;
 import com.immdream.model.domain.news.request.AddNewsDTORequest;
 import com.immdream.model.domain.news.request.DeleteNewsDTORequest;
 import com.immdream.model.domain.user.User;
+import com.immdream.model.domain.user.UserBrowsingHistory;
+import com.immdream.model.domain.user.dto.HistoryDTO;
 import com.immdream.publishnews.feign.UserClient;
 import com.immdream.publishnews.mapper.NewsMapper;
 import com.immdream.publishnews.service.INewsService;
@@ -23,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Objects;
+import java.time.Duration;
+import java.util.*;
 
 /**
  * <p>
@@ -44,6 +48,38 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements IN
     @Resource
     private UserClient userClient;
 
+    /**
+     * 热点新闻 - 72小时内的 - 100条
+     * @return
+     */
+    @Override
+    public List<HotNewsDTO> hotNewsList() {
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        now.set(Calendar.DATE, now.get(Calendar.DATE) - 1);
+        Date time = now.getTime();
+        // 获取一百条热点新闻数据
+        List<News> newsList = new LambdaQueryChainWrapper<>(newsMapper)
+                .gt(News::getCreateTime, time)
+                .eq(News::getIsDeleted, false)
+                // .last("limit 100")
+                .list();
+        List<HotNewsDTO> hotNewsList = new ArrayList<>();
+        for(News n : newsList) {
+            HotNewsDTO t = new HotNewsDTO();
+            t.setNews(n);
+            // 计算热度
+            Date nd = n.getCreateTime();
+            Date ndd = new Date();
+            // 小时差
+            int hotHour = (int)Duration.between(nd.toInstant(), ndd.toInstant()).getSeconds() / 3600;
+            int hot = hotHour * (-100) + n.getVisitCount() + n.getJokeCount() + n.getCommentCount() * 2 + n.getCollectionCount() * 4;
+            t.setHot(hot);
+            hotNewsList.add(t);
+        }
+        return hotNewsList;
+    }
+
     @Override
     public boolean addNews(AddNewsDTORequest addNewsDTORequest) {
         if(addNewsDTORequest == null) {
@@ -56,8 +92,8 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements IN
     }
 
     @Override
-    public boolean deleteNews(String id) {
-        if(StringUtils.isEmpty(id)) return false;
+    public boolean deleteNews(Integer id) {
+        if(id<=0) return false;
         return new LambdaUpdateChainWrapper<>(newsMapper)
         .set(News::getIsDeleted, true)
         .eq(News::getId, id)
@@ -65,37 +101,118 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements IN
     }
 
     @Override
-    public boolean topNews(Integer id) {
+    public boolean updateNewsCount(News news) {
+        return newsMapper.updateById(news) == 1;
+    }
+
+    @Override
+    public boolean jokeNews(NewsDetailsQuery newsDetailsQuery) {
+        Integer newsId = newsDetailsQuery.getNewsId();
+        Integer userId = newsDetailsQuery.getUserId();
+        News news = getNewsDetails(newsId);
+        if(Objects.nonNull(news)) {
+            HistoryDTO historyDTO = new HistoryDTO();
+            historyDTO.setUserId(userId);
+            historyDTO.setNewsId(newsId);
+            // 获取历史记录
+            JsonResult<Object> jsonResult = userClient.getOneNewsHistoryRecord(historyDTO);
+            // 历史记录存在，更新当前数据
+            if(Objects.nonNull(jsonResult)) {
+                UserBrowsingHistory history = (UserBrowsingHistory) jsonResult.getData();
+                history.setJoke(!history.getJoke());
+                BeanUtils.copyProperties(history, historyDTO);
+            }
+            boolean isJoke = historyDTO.getJoke();
+            jsonResult = userClient.historyRecord(historyDTO);
+            if (jsonResult.getErrorCode() == null) {
+                log.info("用户浏览记录插入成功");
+                if(isJoke) {
+                    log.info("用户{}点赞新闻{}", historyDTO.getUserId(), historyDTO.getNewsId());
+                    news.setJokeCount(news.getJokeCount() + 1);
+                } else {
+                    log.info("用户{}取消点赞新闻{}", historyDTO.getUserId(), historyDTO.getNewsId());
+                    news.setJokeCount(news.getJokeCount() - 1);
+                }
+                // 更新新闻操作
+                boolean f = this.updateNewsCount(news);
+                if (!f) {
+                    log.info("用户操作失败");
+                    return false;
+                } else {
+                    log.info("用户操作成功");
+                    return true;
+                }
+            } else {
+                log.info("用户浏览记录插入失败: {}", jsonResult.getErrorMessage());
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean topNews(Integer id, boolean isUp) {
         if(id <= 0) return false;
         return new LambdaUpdateChainWrapper<>(newsMapper)
-                .set(News::getIsTop, true)
+                .set(News::getIsTop, isUp)
                 .eq(News::getId, id)
                 .update();
     }
 
     @Override
-    public News getNewsDetails(String id) {
-        if(StringUtils.isEmpty(id)) return null;
+    public News getNewsDetails(Integer userId, Integer id) {
+        if(id <= 0) return null;
+        News news = new LambdaQueryChainWrapper<>(newsMapper)
+                        .eq(News::getId, id).one();
+        if(Objects.nonNull(news)) {
+            HistoryDTO historyDTO = new HistoryDTO();
+            historyDTO.setUserId(userId);
+            historyDTO.setNewsId(id);
+            JsonResult jsonResult = userClient.historyRecord(historyDTO);
+            if (jsonResult.getErrorCode() == null) {
+                log.info("用户浏览记录插入成功");
+                news.setVisitCount(news.getVisitCount()+1);
+                boolean c = this.updateNewsCount(news);
+                if(c) {
+                    log.info("新闻浏览量更新");
+                } else {
+                    log.info("新闻浏览量更新失败");
+                }
+            } else {
+                log.info("用户浏览记录插入失败: {}", jsonResult.getErrorMessage());
+            }
+        }
+        return news;
+    }
+
+    @Override
+    public News getNewsDetails(Integer id) {
+        if(id <= 0) return null;
         return new LambdaQueryChainWrapper<>(newsMapper)
-                .eq(News::getId, id).one();
+                .eq(News::getId, id)
+                .one();
     }
 
     @Override
     public List<News> getNewsList() {
-        return new LambdaQueryChainWrapper<>(newsMapper).list();
+        // return new LambdaQueryChainWrapper<>(newsMapper)
+        //         .eq(News::getIsDeleted, false)
+        //         .list();
+        return newsMapper.selectNewsListTop();
     }
 
     @Override
     public List<News> getNewsList(NewsQuery newsQuery) {
         if(newsQuery == null) return null;
         String title = newsQuery.getNewsTitle();
-        int authorId = newsQuery.getAuthor();
+        Integer authorId = newsQuery.getAuthor();
         if(!StringUtils.isEmpty(title)) {
+            System.out.println("搜索:" + title);
             return new LambdaQueryChainWrapper<>(newsMapper)
                     .like(News::getNewsTitle, title)
                     .list();
         }
-        if(authorId > 0) {
+        if(authorId != null && authorId > 0) {
             log.info("[INFO][查询新闻]尝试调用远程服务获取用户信息");
             // 调用远程服务，获取用户
             User user;

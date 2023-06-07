@@ -43,7 +43,7 @@ public class UserCenterController implements UserCenterApi {
 
     @Override
     @PostMapping("/login")
-    public JsonResult<Object> loginByUsername(@RequestBody @Validated({BaseDTO.Select.class}) LoginUserDTORequest loginUserDTORequest) {
+    public JsonResult<Object> loginByUsername(@RequestBody LoginUserDTORequest loginUserDTORequest) {
         if(Objects.isNull(loginUserDTORequest)) return JsonResult.create(HttpStatus.BAD_REQUEST, "用户名或密码错误", ErrorCode.REQUEST_PARAM_INVALID.getCode(), ErrorCode.REQUEST_PARAM_INVALID.getMessage());
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(loginUserDTORequest, userDTO);
@@ -52,7 +52,7 @@ public class UserCenterController implements UserCenterApi {
     }
 
     @Override
-    @PostMapping("/loginBytel")
+    @PostMapping("/loginByTel")
     public JsonResult loginByTel(@RequestBody @Validated({BaseDTO.Select.class}) LoginUserDTORequest loginUserDTORequest) {
         if(Objects.isNull(loginUserDTORequest)) return JsonResult.create(HttpStatus.BAD_REQUEST, "用户名或密码错误", ErrorCode.REQUEST_PARAM_INVALID.getCode(), ErrorCode.REQUEST_PARAM_INVALID.getMessage());
         log.info("[INFO][用户登录] {}用户登录中!", loginUserDTORequest.getUsername());
@@ -86,6 +86,13 @@ public class UserCenterController implements UserCenterApi {
             return JsonResult.error(ErrorCode.REQUEST_ERROR, "信息更新失败!");
         }
         return JsonResult.success("用户信息更新成功!");
+    }
+
+    @Override
+    @GetMapping("/history")
+    public JsonResult<Object> getBrowsingHistory(Integer id) {
+        log.info("[INFO][浏览记录]用户浏览记录查询");
+        return JsonResult.success(userService.listHistoryById(id));
     }
 
     @Override
@@ -186,7 +193,7 @@ public class UserCenterController implements UserCenterApi {
         if(attentionUserPage == null) {
             return JsonResult.error(ErrorCode.REQUEST_PARAM_ERROR, "用户id不正确！");
         }
-        log.info("[INFO][查询发布新闻]用户:{}, 查询发布新闻！", id);
+        log.info("[INFO][查询关注用户]用户:{}, 查询关注用户！", id);
         // 分页数据转换
         PageResult<UserQuery> pageResult = PageResult.create(attentionUserPage);
         return JsonResult.success(pageResult);
@@ -214,6 +221,7 @@ public class UserCenterController implements UserCenterApi {
      * @return
      */
     @Override
+    @DeleteMapping("/deletePublishNews")
     public JsonResult<Object> deletePublishNews(Integer id, String newsId) {
         return null;
     }

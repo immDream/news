@@ -25,10 +25,13 @@ public interface NewsManagerApi {
     JsonResult<Object> addNews(AddNewsDTORequest addNewsDTORequest);
 
     @ApiOperation("删除新闻")
-    JsonResult<Object> deleteNews(String id);
+    JsonResult<Object> deleteNews(Integer id);
 
     @ApiOperation("新闻置顶")
-    JsonResult<Object> topNews(Integer id);
+    JsonResult<Object> upNews(Integer id);
+
+    @ApiOperation("取消置顶")
+    JsonResult<Object> downNews(Integer id);
 
     @ApiOperation("新闻分类添加")
     JsonResult<Object> addNewsType(NewsTypeDTORequest newsTypeDTORequest);
@@ -40,13 +43,13 @@ public interface NewsManagerApi {
     JsonResult<Object> deleteNewsType(Integer id);
 
     @ApiOperation("获取新闻")
-    JsonResult<Object> getNewsDetails(String id);
+    JsonResult<Object> getNewsDetails(Integer id);
 
     @ApiOperation("获取新闻列表")
     JsonResult<Object> getNewsList();
 
     @ApiOperation("查询新闻")
-    JsonResult<Object> getNewsListByKey(NewsQuery newsQuery);
+    JsonResult<Object> getNewsListByKey(String title);
 
     @ApiOperation("获取新闻分类")
     JsonResult<Object> getNewsType(NewsTypeQuery newsTypeQuery);
@@ -59,4 +62,17 @@ public interface NewsManagerApi {
 
     @ApiOperation("分页查询新闻类型")
     JsonResult<Object> queryNewsTypePage(NewsTypeQuery newsTypeQuery, int pageIndex, int pageSize);
+
+    @ApiOperation("获取新闻评论列表")
+    JsonResult<Object> getNewsCommentList();
+
+    @ApiOperation("根据条件查找评论")
+    JsonResult<Object> getNewsCommentListByCondition(String condition, String key);
+
+    @ApiOperation("封禁评论")
+    JsonResult<Object> banComment(Integer id);
+
+    @ApiOperation("解封评论")
+    JsonResult<Object> unBanComment(Integer id);
+
 }

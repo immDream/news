@@ -1,7 +1,7 @@
 package com.immdream.webapi.filesystem;
 
 /**
- * Created with IntelliJ IDEA.
+ * 文件管理
  * <p>
  * news com.immdream.webapi.filesystem
  *

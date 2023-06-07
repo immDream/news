@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immdream.usermanager.mapper.UserBrowsingHistoryMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.immdream.model.domain.user.UserBrowsingHistory">
+    <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="news_id" property="newsId" />
+        <result column="is_delete" property="deleted" />
+        <result column="is_joke" property="joke" />
+        <result column="is_uninterested" property="uninterested" />
+        <result column="is_comment" property="comment" />
+        <result column="is_collect" property="collect" />
+        <result column="joke_count" property="jokeCount" />
+        <result column="collection_count" property="collectionCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        user_id, news_id, is_delete, is_joke, is_uninterested, is_comment, is_collect, create_time, update_time
+    </sql>
+
+    <select id="getHistory" resultType="com.immdream.usermanager.domain.HistoryNewsDTO" parameterType="Integer">
+        select a.id as newsid, a.news_title as title, b.create_time from
+        user_browsing_history b, news a
+        where a.id = b.news_id and b.user_id = #{id}
+    </select>
+
+</mapper>

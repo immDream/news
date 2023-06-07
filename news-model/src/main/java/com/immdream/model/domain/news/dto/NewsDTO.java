@@ -1,10 +1,12 @@
 package com.immdream.model.domain.news.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.immdream.model.domain.news.Comment;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -104,4 +106,9 @@ public class NewsDTO implements Serializable {
      * 新闻更新时间
      */
     private Date updateTime;
+
+    /**
+     * 评论列表
+     */
+    private List<Comment> commentList;
 }

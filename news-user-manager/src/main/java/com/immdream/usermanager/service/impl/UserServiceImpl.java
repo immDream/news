@@ -21,6 +21,7 @@ import com.immdream.model.domain.user.query.UserQuery;
 import com.immdream.model.domain.user.request.FollowUserDTORequest;
 import com.immdream.model.domain.user.request.LoginUserDTORequest;
 import com.immdream.model.domain.user.vo.UserVo;
+import com.immdream.usermanager.domain.HistoryNewsDTO;
 import com.immdream.usermanager.mapper.NewsMapper;
 import com.immdream.usermanager.mapper.UserAttentionMapper;
 import com.immdream.usermanager.mapper.UserBrowsingHistoryMapper;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -120,9 +122,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.selectUserListByCondition(condition);
     }
 
+    /**
+     * 分页查询用户数据
+     * @param pageIndex     查询的页码
+     * @param pageSize      每页查询条数
+     * @param userQuery     查询条件
+     * @return
+     */
     @Override
-    public List<User> listUsers(int pageIndex, int pageSize, UserQuery userQuery) {
-        return null;
+    public Page<User> listUsers(int pageIndex, int pageSize, UserQuery userQuery) {
+        // 开启分页
+        Page<User> page = PageHelper.startPage(pageIndex, pageSize);
+        List<User> userList;
+        if(userQuery == null) {
+            log.info("[INFO][用户列表]查询条件为空则全部查询");
+            userList = list();
+        } else {
+            log.info("[INFO][用户列表]按条件查询用户");
+            userList = list();
+        }
+        if(Objects.isNull(userList)) {
+            log.info("[INFO][用户列表]没有查询到用户！");
+        } else {
+            log.info("[INFO][用户列表]查询用户列表成功！");
+        }
+        return page;
     }
 
     @Override
@@ -176,6 +200,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    public List<HistoryNewsDTO> listHistoryById(Integer id) {
+        List<HistoryNewsDTO> historyNewsDTOList = userBrowsingHistoryMapper.getHistory(id);
+        log.info("[INFO][浏览记录]用户浏览记录查询成功!");
+        return historyNewsDTOList;
+    }
+
+
+    @Override
     public JsonResult listHistoryViewsById(Integer id) {
         if(id < 0) return JsonResult.error(ErrorCode.REQUEST_PARAM_ERROR, "用户id错误!");
         List<UserBrowsingHistory> histories = new LambdaQueryChainWrapper<>(userBrowsingHistoryMapper)
@@ -210,7 +242,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 开启分页
         Page<News> page = PageHelper.startPage(pageIndex, pageSize);
         List<News> news = new LambdaQueryChainWrapper<>(newsMapper)
-                .eq(News::getAuthor, id).list();
+                .eq(News::getAuthor, id).eq(News::getIsDeleted, false).list();
         if(Objects.isNull(news)) {
             log.info("[INFO][新闻发布列表]用户:{}, 没有查询到新闻发布列表！", id);
         } else {
@@ -276,6 +308,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public boolean particularUser(FollowUserDTORequest followUserDTORequest) {
         return false;
+    }
+
+    @Override
+    public boolean banUserById(String id) {
+        return new LambdaUpdateChainWrapper<User>(userMapper)
+                .set(User::getBan, true)
+                .eq(User::getId, id).update();
+    }
+
+    @Override
+    public boolean unBanUserById(String id) {
+        return new LambdaUpdateChainWrapper<User>(userMapper)
+                .set(User::getBan, false)
+                .eq(User::getId, id).update();
     }
 
     /**

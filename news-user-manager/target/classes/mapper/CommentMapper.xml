@@ -8,6 +8,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.immdream.model.domain.news.Comment">
     <result column="id" property="id" />
+        <result column="news_id" property="newsId" />
         <result column="user_id" property="userId" />
         <result column="comment" property="comment" />
         <result column="is_deleted" property="isDeleted" />
@@ -17,7 +18,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
-        user_id, comment, is_deleted, create_time
+        news_id, user_id, comment, is_deleted, create_time
     </sql>
 
 </mapper>

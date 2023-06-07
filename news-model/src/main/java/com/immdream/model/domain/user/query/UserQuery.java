@@ -33,7 +33,6 @@ public class UserQuery implements Serializable {
      * 用户昵称
      */
     private String nickname;
-
     /**
      * 用户头像，默认相对地址
      */

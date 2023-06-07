@@ -2,12 +2,10 @@ package com.immdream.publishnews.feign;
 
 import com.immdream.commons.util.JsonResult;
 import com.immdream.model.domain.user.User;
+import com.immdream.model.domain.user.dto.HistoryDTO;
 import com.immdream.publishnews.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户服务
@@ -33,5 +31,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public interface UserClient {
     @GetMapping("/usermanager/admin/queryUser")
-    JsonResult queryUserById(@RequestParam("id") Integer id);
+    JsonResult<Object> queryUserById(@RequestParam("id") Integer id);
+
+    @PostMapping("/usermanager/admin/history")
+    JsonResult<Object> historyRecord(@RequestBody HistoryDTO historyDTO);
+
+    @GetMapping("/usermanager/admin/getOneNewsHistoryRecord")
+    JsonResult<Object> getOneNewsHistoryRecord(@RequestBody HistoryDTO historyDTO);
+
 }

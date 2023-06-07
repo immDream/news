@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -42,21 +43,35 @@ public class UserBrowsingHistory extends Model<UserBrowsingHistory> {
      * 新闻id
      */
     @TableField("news_id")
-    private String newsId;
+    private Integer newsId;
 
-    @TableField("delete_id")
-    private Boolean deleteId;
+    @TableField("is_delete")
+    private Boolean deleted;
+
+    @TableField("is_joke")
+    private Boolean joke;
+
+    @TableField("is_uninterested")
+    private Boolean uninterested;
+
+    @TableField("is_comment")
+    private Boolean comment;
+
+    @TableField("is_collect")
+    private Boolean collect;
 
     /**
      * 浏览时间
      */
     @TableField("create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     /**
      * 数据更新时间
      */
     @TableField("update_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
 

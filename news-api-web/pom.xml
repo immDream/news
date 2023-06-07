@@ -24,6 +24,12 @@
     <dependency>
       <groupId>com.immdream</groupId>
       <artifactId>news-commons</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -45,6 +51,12 @@
     <dependency>
       <groupId>com.immdream</groupId>
       <artifactId>news-model</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 

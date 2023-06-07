@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.immdream.publishnews")
 @EnableCircuitBreaker       // 熔断器
-@SpringBootApplication(scanBasePackages = {"com.immdream.publishnews"})
+@SpringBootApplication(scanBasePackages = {"com.immdream"})
 @MapperScan(basePackages = {"com.immdream.publishnews.mapper"})
 public class PublishNewsApplication
 {

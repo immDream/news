@@ -3,6 +3,9 @@ package com.immdream.publishnews.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.immdream.model.domain.news.News;
+import com.immdream.model.domain.news.dto.HotNewsDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,11 @@ import com.immdream.model.domain.news.News;
  */
 public interface NewsMapper extends BaseMapper<News> {
 
+    /**
+     * 返回置顶新闻列表
+     * @return
+     */
+    List<News> selectNewsListTop();
+
+    List<HotNewsDTO> selectHotNewsList();
 }

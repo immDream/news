@@ -1,8 +1,10 @@
 package com.immdream.usermanager.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.immdream.model.domain.news.Banner;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.immdream.model.domain.user.UserRegion;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -12,6 +14,6 @@ import com.immdream.model.domain.news.Banner;
  * @author immDream
  * @since 2023-04-11
  */
-public interface IBannerService extends IService<Banner> {
-
+public interface IRegionService extends IService<UserRegion> {
+    public Map<String, Long> getRegionNum();
 }

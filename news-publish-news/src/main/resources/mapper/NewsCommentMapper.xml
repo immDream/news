@@ -7,16 +7,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.immdream.model.domain.news.NewsComment">
-    <result column="id" property="id" />
-        <result column="user_id" property="userId" />
+        <result column="id" property="id" />
         <result column="comment_id" property="commentId" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
-        user_id, comment_id, create_time
+        id, comment_id, create_time
     </sql>
 
 </mapper>

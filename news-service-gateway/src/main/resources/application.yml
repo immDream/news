@@ -26,16 +26,11 @@ spring:
           uri: lb://USER-MANAGER-SERVICE  # 自动启动了负载均衡 lb load balance
           predicates:                 # 断言路径
             - Path=/usermanager/**
-#        - id: DEMO-CONSUMER-ROUTER
-#          uri: lb://DEMO-CONSUMER
-#          predicates:
-#            - Path=/   # 输入这个地址自动加上前缀
-#          filters:
-#            - PrefixPath=/consumer
-#        - id: DEMO-ORDER-ROUTER
-#          uri: lb://DEMO-ORDER-SERVICE
-#          predicates:
-#            - Path=/order/**
+        - id: NEWS-PUBLISH-SERVICE-ROUTER   # - 表示为数组
+          uri: lb://NEWS-PUBLISH-SERVICE  # 自动启动了负载均衡 lb load balance
+          predicates:                 # 断言路径
+            - Path=/publishnews/**
+
       # 配置多个默认的全局过滤器
       default-filters:
 #        - AddResponseHeader=token, 111123123123123

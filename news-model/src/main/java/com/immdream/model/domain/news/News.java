@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -27,8 +28,8 @@ import java.util.Date;
 public class News extends Model<News> {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     /**
      * 新闻标题
      */
@@ -52,10 +53,16 @@ public class News extends Model<News> {
     private String description;
 
     /**
-     * 新闻标题图片地址路径,命名方式为news_id + # + timestamp
+     * 新闻标题图片地址路径
      */
-    @TableField("news_image_path")
-    private String newsImagePath;
+    @TableField("pic_url")
+    private String picUrl;
+
+    /**
+     * 新闻标题图片地址路径
+     */
+    @TableField("video_url")
+    private String videoUrl;
 
     /**
      * 新闻原地址
@@ -121,12 +128,14 @@ public class News extends Model<News> {
      * 新闻发布时间
      */
     @TableField("create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     /**
      * 新闻更新时间
      */
     @TableField("update_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
 

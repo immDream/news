@@ -40,4 +40,6 @@ public class UserVo {
      */
     private String describe;
 
+    private boolean isBan;
+
 }

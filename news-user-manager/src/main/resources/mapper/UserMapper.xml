@@ -15,6 +15,7 @@
         <result column="telephone" property="telephone" />
         <result column="image" property="image" />
         <result column="describe" property="describe" />
+        <result column="is_ban" property="ban" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
@@ -30,28 +31,50 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         `id`,
-        `username`, `password`, `nickname`, `email`, `telephone`, `image`, `describe`, `create_time`, `update_time`
+        `username`, `password`, `nickname`, `email`, `telephone`, `image`, `describe`, `is_ban`, `create_time`, `update_time`
     </sql>
 
     <!-- 没有关键信息的用户所需要的结果列 -->
     <sql id="Unimportant_User_List">
-        `user`.id, username, nickname, image, `describe`
+        `user`.id, username, nickname, image, `describe`, `is_ban`
     </sql>
+
+    <!--<select id="selectUserListByCondition" parameterType="com.immdream.model.domain.user.User"-->
+    <!--        resultMap="BaseResultMap">-->
+    <!--    select <include refid="Base_Column_List" /> from USER-->
+    <!--    <where>-->
+    <!--        <if test="id != null">-->
+    <!--            and id = #{id}-->
+    <!--        </if>-->
+    <!--        <if test="username != null">-->
+    <!--            and username like "%" + #{username} + "%"-->
+    <!--        </if>-->
+    <!--        <if test="telephone != null">-->
+    <!--            union select <include refid="Base_Column_List" /> from USER-->
+    <!--            where telephone = #{telephone}-->
+    <!--        </if>-->
+    <!--        <if test="email != null">-->
+    <!--            union select <include refid="Base_Column_List" /> from USER-->
+    <!--            where email = #{email}-->
+    <!--        </if>-->
+    <!--    </where>-->
+    <!--</select>-->
 
     <select id="selectUserListByCondition" parameterType="com.immdream.model.domain.user.User"
             resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from USER
         <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
             <if test="username != null">
-                and username = #{username}
+                and username like concat('%', #{username}, '%')
             </if>
             <if test="telephone != null">
-                union select <include refid="Base_Column_List" /> from USER
-                where telephone = #{telephone}
+                and telephone = #{telephone}
             </if>
             <if test="email != null">
-                union select <include refid="Base_Column_List" /> from USER
-                where email = #{email}
+                and email = #{email}
             </if>
         </where>
     </select>
