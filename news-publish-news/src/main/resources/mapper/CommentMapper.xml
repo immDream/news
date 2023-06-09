@@ -23,7 +23,7 @@
 
     <select id="getNewsCommentList" resultType="com.immdream.publishnews.domain.NewsCommentDTO"
             parameterType="Integer">
-        select u.id as userid, u.username as username, c.create_time as time,
+        select u.id as userid, u.username as username, u.nickname as nickname, c.create_time as time,
         u.image as userheadPortrait, `c`.comment as comments
         from `user` as u, comment as `c`
         where u.id = `c`.user_id and `c`.news_id = #{newsid} and `c`.is_deleted = 0

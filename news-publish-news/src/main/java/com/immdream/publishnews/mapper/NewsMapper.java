@@ -4,7 +4,9 @@ package com.immdream.publishnews.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.immdream.model.domain.news.News;
 import com.immdream.model.domain.news.dto.HotNewsDTO;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,5 +25,5 @@ public interface NewsMapper extends BaseMapper<News> {
      */
     List<News> selectNewsListTop();
 
-    List<HotNewsDTO> selectHotNewsList();
+    List<News> selectHotNewsList(@Param("time") Date time);
 }

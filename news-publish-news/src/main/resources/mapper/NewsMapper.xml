@@ -49,9 +49,14 @@
             where is_top = 0  and is_deleted = 0;
     </select>
 
-    <!--<select id="selectHotNewsList" resultMap="Hot_News_List" parameterType="java.util.Date">-->
-    <!--    select * from news-->
-    <!--    where-->
-    <!--</select>-->
+    <select id="selectHotNewsList" resultMap="BaseResultMap" parameterType="java.util.Date">
+        select <include refid="Base_Column_List"></include>
+        from news
+        where is_top = 1 and is_deleted = 0
+        union
+        select <include refid="Base_Column_List"></include>
+        from news
+        where is_top = 0  and is_deleted = 0 and create_time > #{time};
+    </select>
 
 </mapper>

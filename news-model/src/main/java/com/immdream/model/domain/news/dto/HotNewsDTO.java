@@ -20,6 +20,8 @@ public class HotNewsDTO implements Comparable<HotNewsDTO> {
 
     @Override
     public int compareTo(@NotNull HotNewsDTO o) {
-        return o.hot > this.hot ? -1 : o.hot.equals(this.hot) ? 0 : 1;
+        if(this.news.getIsTop()) return -1;
+        if(o.news.getIsTop()) return 1;
+        return o.hot > this.hot ? 1 : o.hot.equals(this.hot) ? 0 : -1;
     }
 }

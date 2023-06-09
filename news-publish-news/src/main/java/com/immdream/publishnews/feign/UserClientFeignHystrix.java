@@ -28,6 +28,6 @@ public class UserClientFeignHystrix implements UserClient {
 
     @Override
     public JsonResult getOneNewsHistoryRecord(HistoryDTO historyDTO) {
-        return null;
+        return JsonResult.error(ErrorCode.SERVER_ERROR, "userManager服务异常，请稍后重试");
     }
 }

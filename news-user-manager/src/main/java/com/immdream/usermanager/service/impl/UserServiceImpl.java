@@ -95,7 +95,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<User> loginUsers = selectUserListByCondition(condition);
         if(loginUsers == null || loginUsers.size() < 1) {    // 没有注册过
             // 注册用户 - 保存入数据库
-            if(this.saveUser(userDTO)) return JsonResult.success("用户注册成功！", userDTO);
+            if(this.saveUser(userDTO)) {
+                return JsonResult.success("用户注册成功！", userDTO);
+            }
             return JsonResult.error(ErrorCode.REGISTER_FAILED, "用户注册失败!");
         }
         // 注册过，提供反馈信息
@@ -204,6 +206,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<HistoryNewsDTO> historyNewsDTOList = userBrowsingHistoryMapper.getHistory(id);
         log.info("[INFO][浏览记录]用户浏览记录查询成功!");
         return historyNewsDTOList;
+    }
+
+    @Override
+    public UserBrowsingHistory getHistory(Integer userId, Integer newsId) {
+        UserBrowsingHistory history = new LambdaQueryChainWrapper<>(userBrowsingHistoryMapper)
+                .eq(UserBrowsingHistory::getUserId, userId)
+                .eq(UserBrowsingHistory::getNewsId, newsId)
+                .one();
+        return history;
     }
 
 

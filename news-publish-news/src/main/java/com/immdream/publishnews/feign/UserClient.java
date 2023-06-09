@@ -36,7 +36,7 @@ public interface UserClient {
     @PostMapping("/usermanager/admin/history")
     JsonResult<Object> historyRecord(@RequestBody HistoryDTO historyDTO);
 
-    @GetMapping("/usermanager/admin/getOneNewsHistoryRecord")
+    @PostMapping("/usermanager/admin/getOneNewsHistoryRecord")
     JsonResult<Object> getOneNewsHistoryRecord(@RequestBody HistoryDTO historyDTO);
 
 }

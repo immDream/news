@@ -29,9 +29,10 @@
     </sql>
 
     <select id="getHistory" resultType="com.immdream.usermanager.domain.HistoryNewsDTO" parameterType="Integer">
-        select a.id as newsid, a.news_title as title, b.create_time from
+        select a.id as newsid, a.news_title as title, b.update_time as time from
         user_browsing_history b, news a
         where a.id = b.news_id and b.user_id = #{id}
+        order by b.update_time desc
     </select>
 
 </mapper>

@@ -20,6 +20,7 @@ public class NewsCommentDTO {
     private String username;
     private Integer newsid;
     private String comments;
+    private String nickname;
     private String userheadPortrait;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date time;

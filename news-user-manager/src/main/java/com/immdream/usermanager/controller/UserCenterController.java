@@ -8,6 +8,8 @@ import com.immdream.commons.util.JsonResult;
 import com.immdream.commons.util.PageResult;
 import com.immdream.model.domain.BaseDTO;
 import com.immdream.model.domain.news.News;
+import com.immdream.model.domain.user.User;
+import com.immdream.model.domain.user.UserBrowsingHistory;
 import com.immdream.model.domain.user.dto.UserDTO;
 import com.immdream.model.domain.user.query.UserPublishNewsQuery;
 import com.immdream.model.domain.user.query.UserQuery;
@@ -51,6 +53,12 @@ public class UserCenterController implements UserCenterApi {
         return userService.login(userDTO);
     }
 
+    @GetMapping("/loginTourist")
+    public JsonResult<Object> loginTourist() {
+        User user = userService.getById(100000);
+        return JsonResult.success(user);
+    }
+
     @Override
     @PostMapping("/loginByTel")
     public JsonResult loginByTel(@RequestBody @Validated({BaseDTO.Select.class}) LoginUserDTORequest loginUserDTORequest) {
@@ -66,6 +74,14 @@ public class UserCenterController implements UserCenterApi {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         return userService.register(userDTO);
+    }
+
+    @Override
+    @GetMapping("/getUserInfo")
+    public JsonResult<Object> userInfo(Integer id) {
+        log.info("[INFO][获取用户信息]获取用户信息");
+        User user = userService.getById(id);
+        return JsonResult.success(user);
     }
 
     @Override
@@ -86,6 +102,14 @@ public class UserCenterController implements UserCenterApi {
             return JsonResult.error(ErrorCode.REQUEST_ERROR, "信息更新失败!");
         }
         return JsonResult.success("用户信息更新成功!");
+    }
+
+    @Override
+    @GetMapping("/historystatus")
+    public JsonResult<Object> getBrowsingHistory(Integer userId, Integer newsId) {
+        UserBrowsingHistory history = userService.getHistory(userId, newsId);
+        if(history == null) return JsonResult.error(ErrorCode.SERVER_ERROR, "用户浏览状态获取失败");
+        return JsonResult.success(history);
     }
 
     @Override

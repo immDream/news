@@ -80,6 +80,8 @@ public class NewsManagerController implements NewsManagerApi {
             return JsonResult.error(ErrorCode.SERVER_ERROR, "新闻删除失败!");
         }
         log.info("[INFO][新闻删除]新闻删除成功!");
+        NewsViewsController.clearNews();
+        NewsViewsController.clearHotNews();
         return JsonResult.success("新闻删除成功!", id);
     }
 
@@ -95,6 +97,8 @@ public class NewsManagerController implements NewsManagerApi {
             return JsonResult.error(ErrorCode.SERVER_ERROR, "新闻置顶失败!");
         }
         log.info("[INFO][新闻置顶]新闻置顶成功!");
+        NewsViewsController.clearHotNews();
+        NewsViewsController.clearNews();
         return JsonResult.success("新闻置顶成功!", id);
     }
 
@@ -110,6 +114,8 @@ public class NewsManagerController implements NewsManagerApi {
             return JsonResult.error(ErrorCode.SERVER_ERROR, "新闻取消置顶失败!");
         }
         log.info("[INFO][新闻取消置顶]新闻取消置顶成功!");
+        NewsViewsController.clearHotNews();
+        NewsViewsController.clearNews();
         return JsonResult.success("新闻取消置顶成功!", id);
     }
 
@@ -207,7 +213,7 @@ public class NewsManagerController implements NewsManagerApi {
             log.info("[INFO][查询新闻类型]查询新闻类型失败，参数为空!");
             return JsonResult.error(ErrorCode.REQUEST_PARAM_ERROR, "用户参数为空!");
         }
-        List<NewsType> newsTypes = newsTypeService.getNewsType(newsTypeQuery);
+        NewsType newsTypes = newsTypeService.getNewsType(newsTypeQuery.getId());
         if(newsTypes == null) {
             log.info("[INFO][查询新闻类型]查询新闻类型失败，没有对应的类型!");
             return JsonResult.error(ErrorCode.SERVER_ERROR, "查询失败，没有对应数据!");
@@ -279,12 +285,14 @@ public class NewsManagerController implements NewsManagerApi {
     @Override
     @DeleteMapping("banComment/{id}")
     public JsonResult<Object> banComment(@PathVariable Integer id) {
+        NewsViewsController.clearComment();
         return JsonResult.success(commentService.banComment(id));
     }
 
     @Override
     @DeleteMapping("unBanComment/{id}")
     public JsonResult<Object> unBanComment(@PathVariable Integer id) {
+        NewsViewsController.clearComment();
         return JsonResult.success(commentService.unBanComment(id));
     }
 }

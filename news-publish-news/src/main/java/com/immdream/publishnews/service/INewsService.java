@@ -59,6 +59,20 @@ public interface INewsService extends IService<News> {
     boolean jokeNews(NewsDetailsQuery newsDetailsQuery);
 
     /**
+     * 新闻不感兴趣
+     * @param newsDetailsQuery
+     * @return
+     */
+    boolean unlikeNews(NewsDetailsQuery newsDetailsQuery);
+
+    /**
+     * 新闻收藏
+     * @param newsDetailsQuery
+     * @return
+     */
+    boolean collectNews(NewsDetailsQuery newsDetailsQuery);
+
+    /**
      * 新闻置顶
      * @param id
      * @return
@@ -85,6 +99,12 @@ public interface INewsService extends IService<News> {
      * @return
      */
     List<News> getNewsList();
+
+    /**
+     * 查询新闻列表
+     * @return
+     */
+    List<News> getTypeNewsList(Integer type);
 
     /**
      * 根据条件查询新闻列表

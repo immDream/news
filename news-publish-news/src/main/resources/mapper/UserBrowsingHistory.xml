@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.immdream.publishnews.mapper.UserBrowsingHistoryMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.immdream.model.domain.user.UserBrowsingHistory">
+    <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="news_id" property="newsId" />
+        <result column="is_delete" property="deleted" />
+        <result column="is_joke" property="joke" />
+        <result column="is_uninterested" property="uninterested" />
+        <result column="is_comment" property="comment" />
+        <result column="is_collect" property="collect" />
+        <result column="joke_count" property="jokeCount" />
+        <result column="collection_count" property="collectionCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="NewsResultMap" type="com.immdream.model.domain.news.News">
+        <result column="id" property="id" />
+        <result column="news_title" property="newsTitle" />
+        <result column="news_content" property="newsContent" />
+        <result column="author" property="author" />
+        <result column="description" property="description" />
+        <result column="pic_url" property="picUrl" />
+        <result column="video_url" property="videoUrl" />
+        <result column="news_link" property="newsLink" />
+        <result column="news_modules" property="newsModules" />
+        <result column="joke_count" property="jokeCount" />
+        <result column="collection_count" property="collectionCount" />
+        <result column="comment_count" property="commentCount" />
+        <result column="visit_count" property="visitCount" />
+        <result column="is_top" property="isTop" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="is_expired" property="isExpired" />
+        <result column="news_tags" property="newsTags" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        user_id, news_id, is_delete, is_joke, is_uninterested, is_comment, is_collect, create_time, update_time
+    </sql>
+
+    <!-- 新闻查询结果列 -->
+    <sql id="News_Column_List">
+        id,
+        news_title, news_content, author, description, pic_url, video_url, news_link, news_modules, joke_count, collection_count, comment_count, visit_count, is_top, is_deleted, is_expired, news_tags, create_time, update_time
+    </sql>
+
+    <select id="selectUserFeature" parameterType="Integer" resultType="com.immdream.publishnews.domain.Feature">
+        select n.news_modules as type, count(h.id) + sum(h.is_joke)
+                                    + sum(h.is_comment)*2 + sum(h.is_collect) * 4 as feature
+        from news n, user_browsing_history h
+        where n.id = h.news_id and h.user_id = #{userId}
+        group by `type`;
+    </select>
+
+    <select id="selectUserHistoryNews" parameterType="Integer" resultType="com.immdream.model.domain.news.News">
+        select <include refid="News_Column_List"></include>
+        from News
+        where id in (
+            select news_id from user_browsing_history
+            where user_id = #{userId} and create_time >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        ) and create_time >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
+    </select>
+
+</mapper>

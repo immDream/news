@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.immdream.commons.util.JsonResult;
 import com.immdream.model.domain.news.News;
 import com.immdream.model.domain.user.User;
+import com.immdream.model.domain.user.UserBrowsingHistory;
 import com.immdream.model.domain.user.dto.UserDTO;
 import com.immdream.model.domain.user.query.UserPublishNewsQuery;
 import com.immdream.model.domain.user.query.UserQuery;
@@ -100,6 +101,8 @@ public interface IUserService extends IService<User> {
      * @return
      */
     List<HistoryNewsDTO> listHistoryById(Integer id);
+
+    UserBrowsingHistory getHistory(Integer userId, Integer newsId);
 
     /**
      * 查询当前用户的 历史浏览记录

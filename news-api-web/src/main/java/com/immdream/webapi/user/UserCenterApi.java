@@ -27,8 +27,14 @@ public interface UserCenterApi {
     @ApiOperation("用户注册")
     JsonResult<Object> registerUser(RegisterUserDTORequest user);
 
+    @ApiOperation("获取用户信息")
+    JsonResult<Object> userInfo(Integer id);
+
     @ApiOperation("更新个人信息")
     JsonResult<Object> updateInfo(UserUpdateDTORequest userUpdateDTORequest, Integer id);
+
+    @ApiOperation("查询用户对某新闻历史记录")
+    JsonResult<Object> getBrowsingHistory(Integer userId, Integer newsId);
 
     @ApiOperation("查询历史记录")
     JsonResult<Object> getBrowsingHistory(Integer id);

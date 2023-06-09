@@ -1,6 +1,8 @@
 package com.immdream.publishnews.service.impl;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.immdream.commons.util.JsonResult;
@@ -59,7 +61,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 JsonResult<Object> jsonResult = userClient.getOneNewsHistoryRecord(historyDTO);
                 // 历史记录存在，更新当前数据
                 if(Objects.nonNull(jsonResult)) {
-                    UserBrowsingHistory history = (UserBrowsingHistory) jsonResult.getData();
+                    UserBrowsingHistory history = JSON.parseObject(JSONObject.toJSONString(jsonResult.getData()), UserBrowsingHistory.class);
                     history.setComment(true);
                     BeanUtils.copyProperties(history, historyDTO);
                 }

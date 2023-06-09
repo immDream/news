@@ -42,10 +42,10 @@ public interface INewsTypeService extends IService<NewsType> {
 
     /**
      * 查询新闻类型
-     * @param newsTypeQuery
+     * @param id
      * @return
      */
-    List<NewsType> getNewsType(NewsTypeQuery newsTypeQuery);
+    NewsType getNewsType(Integer id);
 
     /**
      * 查询全部新闻类型

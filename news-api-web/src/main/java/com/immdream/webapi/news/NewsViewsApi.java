@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 @Api("新闻浏览")
 public interface NewsViewsApi {
     @ApiOperation("获取新闻")
-    JsonResult<Object> getNewsDetail(NewsDetailsQuery newsDetailsQuery);
+    JsonResult<Object> getNewsDetail(Integer newsId, Integer userId);
 
     @ApiOperation("获取新闻")
     JsonResult<Object> getNewsComment(Integer newsId);
@@ -33,6 +33,9 @@ public interface NewsViewsApi {
 
     @ApiOperation("获取新闻列表")
     JsonResult<Object> getNewsList();
+
+    @ApiOperation("获取某一类型新闻列表")
+    JsonResult<Object> getTypeNewsList(Integer type);
 
     @ApiOperation("获取热点新闻列表")
     JsonResult<Object> getHotNewsList();
@@ -57,4 +60,10 @@ public interface NewsViewsApi {
 
     @ApiOperation("新闻点赞")
     JsonResult<Object> joke(NewsDetailsQuery newsDetailsQuery);
+
+    @ApiOperation("新闻收藏")
+    JsonResult<Object> collect(NewsDetailsQuery newsDetailsQuery);
+
+    @ApiOperation("新闻不感兴趣")
+    JsonResult<Object> unlike(NewsDetailsQuery newsDetailsQuery);
 }

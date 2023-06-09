@@ -62,21 +62,12 @@ public class NewsTypeServiceImpl extends ServiceImpl<NewsTypeMapper, NewsType> i
     }
 
     @Override
-    public List<NewsType> getNewsType(NewsTypeQuery newsTypeQuery) {
-        if(newsTypeQuery == null) return null;
-        Integer id = newsTypeQuery.getId();
-        String name = newsTypeQuery.getName();
+    public NewsType getNewsType(Integer id) {
         // 有id查id
-        if (id != null && id > 0) {
+        if (id > 0) {
             return new LambdaQueryChainWrapper<>(newsTypeMapper)
                     .eq(NewsType::getId, id)
-                    .list();
-        }
-        // 没有id，模糊查询
-        if (!StringUtils.isEmpty(name)) {
-            return new LambdaQueryChainWrapper<>(newsTypeMapper)
-                    .like(NewsType::getName, name)
-                    .list();
+                    .one();
         }
         return null;
     }

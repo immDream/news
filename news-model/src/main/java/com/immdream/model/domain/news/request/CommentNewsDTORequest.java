@@ -21,8 +21,8 @@ public class CommentNewsDTORequest {
     /**
      * 新闻
      */
-    @NotEmpty(groups = {BaseDTO.Insert.class})
-    private String newsId;
+    @NotNull(groups = {BaseDTO.Insert.class})
+    private Integer newsId;
 
     /**
      * 评论用户

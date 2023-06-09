@@ -27,11 +27,11 @@ public class HistoryDTO implements Serializable {
      * 新闻id
      */
     private Integer newsId;
-    private Boolean deleted;
-    private Boolean joke;
-    private Boolean uninterested;
-    private Boolean comment;
-    private Boolean collect;
+    private Boolean deleted = false;
+    private Boolean joke = false;
+    private Boolean uninterested = false;
+    private Boolean comment = false;
+    private Boolean collect = false;
 
     /**
      * 浏览时间

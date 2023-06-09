@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -283,6 +284,7 @@ public class UserManagerController implements UserManagerApi {
             finished = historyService.saveRecord(historyDTO);
             if(finished) log.info("[INFO][浏览记录]插入对应浏览记录");
         } else {
+            // 有浏览过新闻
             log.info("[INFO][浏览记录]更新用户浏览记录");
             finished = historyService.updateHistory(historyDTO);
         }
@@ -295,12 +297,14 @@ public class UserManagerController implements UserManagerApi {
     }
 
     @Override
-    @GetMapping("/getOneNewsHistoryRecord")
+    @PostMapping("/getOneNewsHistoryRecord")
     public JsonResult<Object> getHistoryRecord(@RequestBody HistoryDTO historyDTO) {
         UserBrowsingHistory history = historyService.getOne(historyDTO);
         if(Objects.isNull(history)) {
+            log.info("[INFO][查询浏览记录]用户没有浏览过");
             return JsonResult.error(ErrorCode.SERVER_ERROR, "查询历史记录失败");
         }
+        log.info("[INFO][查询浏览记录]查询浏览记录成功");
         return JsonResult.success(history);
     }
 }
